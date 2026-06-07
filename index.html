@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The SEO + GEO Autopilot — Full Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--warm:#E8DFD3;--white:#FFFFFF;--dark:#2D2320;--mid:#7A6B62;
+  --berry:#A8174A;--pink:#F2B8C6;--gingham:#E8A0A0;--sage:#6B8856;--dark-sage:#3D5230;--burgundy:#7A1B1B;
+  --font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',-apple-system,sans-serif;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-full:999px;
+  --shadow-card:0 2px 12px rgba(45,35,32,.06);--shadow-lift:0 4px 20px rgba(45,35,32,.10);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--font-body);background:var(--cream);color:var(--dark);line-height:1.65;padding:40px 24px 64px;}
+.wrap{max-width:760px;margin:0 auto;}
+h1{font-family:var(--font-display);font-size:38px;font-weight:800;line-height:1.12;}
+h2{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1.2;}
+h3{font-family:var(--font-display);font-size:17px;font-weight:600;}
+p{font-size:14.5px;color:var(--dark);margin-bottom:12px;}
+.lead{font-size:16px;color:var(--mid);}
+.divider{width:48px;height:3px;background:var(--berry);border-radius:2px;margin:14px 0 18px;}
+.badge{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1.5px solid var(--berry);color:var(--berry);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:5px 12px;border-radius:var(--radius-full);}
+.badge::before{content:'';width:6px;height:6px;background:var(--berry);border-radius:50%;}
+.section{margin-top:38px;}
+.step-tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--berry);margin-bottom:6px;}
+.card{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-card);margin:16px 0;}
+.card-accent-berry{border-left:4px solid var(--berry);}
+.card-accent-sage{border-left:4px solid var(--sage);}
+.prompt-box{background:#FBF7F2;border:1px solid var(--warm);border-left:4px solid var(--berry);border-radius:var(--radius-md);padding:16px 20px;margin:12px 0 18px;}
+.prompt-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--berry);margin-bottom:8px;}
+.prompt-text{font-size:13px;color:var(--dark);line-height:1.7;font-family:'DM Sans',monospace;white-space:pre-wrap;}
+.cost-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0;}
+.cost{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-md);padding:16px;text-align:center;}
+.cost-num{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--berry);}
+.cost-label{font-size:11.5px;color:var(--mid);margin-top:4px;}
+.tag{display:inline-block;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;}
+.tag-sage{background:#F1F4EF;color:var(--sage);border:1px solid #C8D9BE;}
+.tag-amber{background:#FEF8E8;color:#8B6800;border:1px solid #E8D8A0;}
+a{color:var(--berry);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gingham);}
+a:hover{opacity:.8;}
+ul{margin:0 0 12px 20px;}li{font-size:14.5px;margin-bottom:7px;}
+.steps-num{counter-reset:s;list-style:none;margin-left:0;}
+.steps-num li{counter-increment:s;position:relative;padding-left:38px;margin-bottom:14px;}
+.steps-num li::before{content:counter(s);position:absolute;left:0;top:0;background:var(--berry);color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+.loop{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-md);padding:16px 20px;font-family:var(--font-display);font-size:15px;color:var(--dark);text-align:center;font-weight:600;}
+.dark-panel{background:var(--dark);border-radius:var(--radius-lg);padding:30px;margin-top:20px;}
+.dark-panel h2,.dark-panel h3{color:var(--cream);}
+.dark-panel p{color:#C8BDB8;}
+.dark-panel .accent{color:var(--pink);}
+.btn-cta{display:inline-block;background:var(--berry);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:var(--radius-sm);border-bottom:none;margin-top:14px;}
+.foot{margin-top:40px;text-align:center;font-size:12px;color:var(--mid);}
+.skill-name{font-family:var(--font-display);font-weight:700;color:var(--berry);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="badge">Free Guide · @vibha.in.progress</span>
+  <h1 style="margin-top:16px;">The SEO&nbsp;+&nbsp;GEO Autopilot</h1>
+  <div class="divider"></div>
+  <p class="lead">Set up Claude to audit where you rank — on Google <em>and</em> inside ChatGPT — find why you don't, fix it, and track the climb. Forever. This is the whole system, step by step, with every prompt to copy.</p>
+
+  <!-- WHAT YOU'RE BUILDING -->
+  <div class="section">
+    <div class="step-tag">What you're building</div>
+    <h2>One loop that runs your whole SEO</h2>
+    <p>A real SEO consultant does five things. So will Claude.</p>
+    <div class="loop">Audit&nbsp; →&nbsp; Diagnose&nbsp; →&nbsp; Strategize&nbsp; →&nbsp; Fix&nbsp; →&nbsp; Re-audit&nbsp; →&nbsp; (repeat)</div>
+    <p style="margin-top:14px;">SEO and AI-search aren't separate jobs anymore — they're one. This setup does both at once, and tracks the trend in a live report so you watch it improve week over week.</p>
+  </div>
+
+  <!-- COST -->
+  <div class="section">
+    <div class="step-tag">What it costs</div>
+    <h2>Almost nothing</h2>
+    <div class="cost-grid">
+      <div class="cost"><div class="cost-num">₹0</div><div class="cost-label">The 13 audit skills + your own Google data</div></div>
+      <div class="cost"><div class="cost-num">₹0</div><div class="cost-label">AI-search visibility checkers</div></div>
+      <div class="cost"><div class="cost-num">~₹50</div><div class="cost-label">1,000 live rank checks (optional, pay-as-you-go)</div></div>
+    </div>
+    <p>Everything except competitor rank-tracking is free. The one paid piece — DataForSEO — has no subscription; 1,000 live SERP checks cost about 60 paise.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="section">
+    <div class="step-tag">Step 1</div>
+    <h2>Set up your project &amp; connect your tools</h2>
+    <ol class="steps-num">
+      <li>Open <a href="https://claude.ai">claude.ai</a> → <b>Projects → New Project</b> → name it <b>"SEO + GEO Autopilot."</b></li>
+      <li>Paste the instructions below into <b>Project Settings → Instructions.</b></li>
+      <li>Verify your site in <a href="https://search.google.com/search-console">Google Search Console</a> (free, one-time) — this is what lets Claude see your real rankings.</li>
+      <li>Connect the <a href="https://github.com/AminForou/mcp-gsc">Google Search Console MCP</a> (free, open-source). It's a one-line install — no coding.</li>
+      <li><b>Optional, for competitor + keyword data:</b> add the <a href="https://dataforseo.com">DataForSEO MCP</a> and top up $50 (lasts a very long time).</li>
+    </ol>
+    <div class="prompt-box">
+      <div class="prompt-label">Paste into Project Instructions</div>
+      <div class="prompt-text">You are my SEO + GEO analyst and strategist. You audit my site on Google AND in AI search (ChatGPT, Perplexity, Gemini, Google AI Overviews), find why I'm not ranking, write the fixes, and re-audit to prove they worked.
+
+Rules:
+- Always pull my real numbers from Search Console before guessing.
+- Lead with the fix that has the highest impact for the least effort.
+- One baseline scorecard: Google health + AI-search health, side by side.
+- Track every audit so we can compare week over week.
+- Plain English. No jargon. Tell me exactly where to paste anything you write.</div>
+    </div>
+  </div>
+
+  <!-- STEP 2 — THE 4 SKILLS -->
+  <div class="section">
+    <div class="step-tag">Step 2</div>
+    <h2>The four skills — and the prompt for each</h2>
+
+    <div class="card card-accent-berry">
+      <h3><span class="skill-name">1 · The Auditor</span></h3>
+      <p>Crawls your whole site, runs 180+ technical checks, and pulls your real Google rankings. Your baseline.</p>
+      <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Audit [yoursite.com] end to end. Run the technical crawl, pull my live rankings, impressions and CTR from Search Console, check my Core Web Vitals, and score my AI-search readiness out of 100. Give me one baseline scorecard — Google health on one side, AI-search health on the other — and flag the 5 biggest problems ranked by impact.</div></div>
+    </div>
+
+    <div class="card card-accent-berry">
+      <h3><span class="skill-name">2 · The AI-Search Spy</span></h3>
+      <p>Checks whether AI engines recommend you — and scores exactly why you're being skipped.</p>
+      <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Check if [yoursite.com] shows up when people ask AI about [my category + my 5 top buying questions]. Test ChatGPT, Perplexity, Gemini, Google AI Overviews and Bing Copilot. For each: am I cited — yes or no — and if not, the single reason why. Then score my overall AI-search visibility out of 100.</div></div>
+      <p style="margin-bottom:0;font-size:13px;"><b>Free shortcut:</b> run your domain through <a href="https://ahrefs.com/ai-visibility-checker">Ahrefs</a>, <a href="https://www.useomnia.com/ai-visibility-checker">Omnia</a>, or <a href="https://www.semrush.com/free-tools/ai-search-visibility-checker/">Semrush</a> — all free, no signup.</p>
+    </div>
+
+    <div class="card card-accent-berry">
+      <h3><span class="skill-name">3 · The Diagnoser</span> <span class="tag tag-amber">long-tail engine</span></h3>
+      <p>This is where the real wins live. Finds the long-tail keywords you <em>almost</em> rank for and the exact questions people ask AI that you should be answering.</p>
+      <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">From my Search Console data, find every long-tail keyword where I rank between position 8 and 20 — my "striking distance" quick wins. Sort by monthly search volume. For each, tell me the ONE change that pushes it onto page one. Then list the top 10 questions people ask AI in my niche that I don't yet answer on my site.</div></div>
+      <p style="margin-bottom:0;font-size:13px;">Long-tail is ~70% of all searches and exactly how people talk to AI. Striking-distance keywords (rank 8–20) are the fastest wins in SEO — fix these first.</p>
+    </div>
+
+    <div class="card card-accent-berry">
+      <h3><span class="skill-name">4 · The Fixer</span></h3>
+      <p>Writes every fix, ready to paste — schema, llms.txt, rewritten pages, citable answer blocks.</p>
+      <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Take the top 3 fixes from the audit. Write me everything ready to paste: the FAQ schema as JSON-LD, my llms.txt file, and rewritten titles + meta + a 150-word citable answer block for each target page. Give me copy-paste-ready output and tell me exactly where each piece goes.</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 3 — RE-AUDIT -->
+  <div class="section">
+    <div class="step-tag">Step 3</div>
+    <h2>Close the loop — re-audit</h2>
+    <p>Two weeks after you ship the fixes, prove they worked.</p>
+    <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Re-run the full audit on [yoursite.com] and compare it to my last baseline. What moved — positions, GEO score, AI citations? What's still open? Give me this week's top 3 priorities.</div></div>
+  </div>
+
+  <!-- STEP 4 — LIVE ARTIFACT -->
+  <div class="section">
+    <div class="step-tag">Step 4 · the part everyone asks about</div>
+    <h2>Set up your live report</h2>
+    <p>SEO only improves over time — so you need to see the trend, not a one-off snapshot. Claude can build you a live dashboard that pulls fresh numbers every time you open it and draws your rankings climbing week over week.</p>
+    <p>Two pieces make it work together:</p>
+    <h3 style="margin-top:10px;">A · Build the dashboard</h3>
+    <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Create a live artifact dashboard for my SEO + GEO report. Each time I open it, pull my current rankings from the Search Console MCP and my GEO score, and draw a line chart of both over time. Show my striking-distance keywords as a table and my AI-citation status per platform. Remember each day's numbers so the trend builds up.</div></div>
+    <h3>B · Add a daily logger so the graph fills in by itself</h3>
+    <p>An artifact only refreshes when you open it — so schedule a tiny daily task to log one datapoint every morning, even on days you don't look.</p>
+    <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Every morning at 8am, run my SEO + GEO audit on [yoursite.com], save today's key numbers — average position, GEO score, keywords in top 10, AI citations — to my tracking file, and message me only if something moved more than 3 positions.</div></div>
+    <p>Now your dashboard climbs on its own, and you've got the proof-it-worked screen — perfect for showing a client or your boss.</p>
+  </div>
+
+  <!-- GTM -->
+  <div class="section">
+    <div class="step-tag">Bonus</div>
+    <h2>Plug it into your GTM command center</h2>
+    <p>If you already run content through a GTM stack in Claude, point this loop at everything it publishes — so every blog and page gets checked for whether it actually ranks and gets cited, and the gaps feed straight back into next week's content.</p>
+    <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Audit the last 5 pages my GTM stack published. For each, are they ranking and getting cited in AI search? List the keyword gaps and turn them into next week's content briefs.</div></div>
+  </div>
+
+  <!-- LINKS CHEAT SHEET -->
+  <div class="section">
+    <div class="step-tag">Every link in one place</div>
+    <h2>Your toolkit</h2>
+    <div class="card">
+      <ul style="margin-bottom:0;">
+        <li><a href="https://claude.ai">Claude</a> — where the whole thing runs</li>
+        <li><a href="https://search.google.com/search-console">Google Search Console</a> — verify your site (free)</li>
+        <li><a href="https://github.com/AminForou/mcp-gsc">GSC MCP (mcp-gsc)</a> — connects your live Google data (free)</li>
+        <li><a href="https://dataforseo.com">DataForSEO MCP</a> — competitor + keyword data (~₹50 / 1,000 checks)</li>
+        <li><a href="https://pagespeed.web.dev">PageSpeed Insights</a> — Core Web Vitals (free)</li>
+        <li>AI-search checkers (free): <a href="https://ahrefs.com/ai-visibility-checker">Ahrefs</a> · <a href="https://www.useomnia.com/ai-visibility-checker">Omnia</a> · <a href="https://www.semrush.com/free-tools/ai-search-visibility-checker/">Semrush</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="dark-panel">
+    <h2>Want me to set this up <span class="accent">with</span> you?</h2>
+    <p style="margin-top:8px;">Not everyone wants to wire up MCPs and projects themselves — and that's completely fine. If you'd rather have it built <em>for</em> your brand, with the prompts tuned to your business and the live report running, book a paid working session with me. We'll set the whole loop up together, on your real site.</p>
+    <a class="btn-cta" href="https://www.vibha.is/taking-meetings">Book a session → vibha.is/taking-meetings</a>
+  </div>
+
+  <div class="foot">Made by Vibha · @vibha.in.progress · save this, you'll come back to it</div>
+
+</div>
+</body>
+</html>
