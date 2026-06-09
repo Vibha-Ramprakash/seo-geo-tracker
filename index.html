@@ -53,6 +53,7 @@ ul{margin:0 0 12px 20px;}li{font-size:14.5px;margin-bottom:7px;}
 .btn-cta{display:inline-block;background:var(--berry);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:var(--radius-sm);border-bottom:none;margin-top:14px;}
 .foot{margin-top:40px;text-align:center;font-size:12px;color:var(--mid);}
 .skill-name{font-family:var(--font-display);font-weight:700;color:var(--berry);}
+code{background:#FBF0F4;color:var(--berry);font-family:'SFMono-Regular',Consolas,monospace;font-size:.88em;padding:1px 6px;border-radius:5px;border:1px solid #F3D9E2;}
 </style>
 </head>
 <body>
@@ -127,17 +128,64 @@ Rules:
     </div>
 
     <div class="card card-accent-berry">
-      <h3><span class="skill-name">3 · The Diagnoser</span> <span class="tag tag-amber">long-tail engine</span></h3>
-      <p>This is where the real wins live. Finds the long-tail keywords you <em>almost</em> rank for and the exact questions people ask AI that you should be answering.</p>
-      <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">From my Search Console data, find every long-tail keyword where I rank between position 8 and 20 — my "striking distance" quick wins. Sort by monthly search volume. For each, tell me the ONE change that pushes it onto page one. Then list the top 10 questions people ask AI in my niche that I don't yet answer on my site.</div></div>
-      <p style="margin-bottom:0;font-size:13px;">Long-tail is ~70% of all searches and exactly how people talk to AI. Striking-distance keywords (rank 8–20) are the fastest wins in SEO — fix these first.</p>
+      <h3><span class="skill-name">3 · The Diagnoser</span> <span class="tag tag-amber">keyword + question engine</span></h3>
+      <p>This is where the real wins live. Two gaps in one: the long-tail keywords you <em>almost</em> rank for, and the exact questions people ask AI — scored by intent so you know precisely what to write.</p>
+      <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">From my Search Console data, find every long-tail keyword where I rank between position 8 and 20 — my "striking distance" quick wins. Then pull the top questions people ask AI in my niche, classify each by intent (informational / commercial / transactional), and mark whether I already answer it, answer it thinly, or have no answer at all. Sort by volume, and for each gap tell me exactly what to write and where — a blog, an FAQ, or a comparison page.</div></div>
+      <p style="margin-bottom:0;font-size:13px;">Long-tail is ~70% of all searches and exactly how people talk to AI. Fill the "no answer" questions first — that's where AI has nobody to cite yet.</p>
     </div>
 
     <div class="card card-accent-berry">
       <h3><span class="skill-name">4 · The Fixer</span></h3>
-      <p>Writes every fix, ready to paste — schema, llms.txt, rewritten pages, citable answer blocks.</p>
-      <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Take the top 3 fixes from the audit. Write me everything ready to paste: the FAQ schema as JSON-LD, my llms.txt file, and rewritten titles + meta + a 150-word citable answer block for each target page. Give me copy-paste-ready output and tell me exactly where each piece goes.</div></div>
+      <p>Writes every fix, ready to paste — schema, llms.txt, robots.txt, rewritten pages, citable answer blocks.</p>
+      <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Take the top 3 fixes from the audit. Write me everything ready to paste: the FAQ schema as JSON-LD, my llms.txt file, the robots.txt rules to allow AI crawlers, and rewritten titles + meta + a 150-word citable answer block for each target page. Give me copy-paste-ready output and tell me exactly where each piece goes.</div></div>
     </div>
+  </div>
+
+  <!-- IMPLEMENTATION — plain English -->
+  <div class="section">
+    <div class="step-tag">Before you deploy · in plain English</div>
+    <h2>Wait — what are these files, and where do they go?</h2>
+    <p>Claude hands you three things. Here's what each one actually is and where it lives. None of this touches your design or your content — they're small, safe, standard files.</p>
+
+    <div class="card card-accent-berry">
+      <h3>robots.txt <span class="tag tag-sage">Easy</span></h3>
+      <p style="margin-bottom:0;">A tiny text file that tells search engines and AI crawlers which parts of your site they're allowed to read. <b>One file, lives at the very top of your site:</b> <code>yoursite.com/robots.txt</code>. Ours simply says "yes, AI bots like GPTBot, ClaudeBot and PerplexityBot are welcome." Without it, some AI engines skip you completely.</p>
+    </div>
+
+    <div class="card card-accent-berry">
+      <h3>llms.txt <span class="tag tag-sage">Easy</span></h3>
+      <p style="margin-bottom:0;">The new "menu" you hand to AI. A plain text file at <code>yoursite.com/llms.txt</code> that tells ChatGPT, Perplexity and friends what your site is about and which pages matter most — so they describe and cite you correctly. It's a brand-new standard that <b>almost no one has yet</b> — which is exactly why it's an easy edge.</p>
+    </div>
+
+    <div class="card card-accent-berry">
+      <h3>Schema (JSON-LD) <span class="tag tag-amber">Easy–Medium</span></h3>
+      <p style="margin-bottom:0;">A small snippet of code that labels your content so Google and AI understand it ("this is an FAQ", "this is the answer to X"). <b>It goes inside the <code>&lt;head&gt;</code> of the one page it describes</b> — not site-wide. This is what earns rich results and AI citations.</p>
+    </div>
+
+    <h3 style="margin-top:24px;">How to actually deploy it — find your setup</h3>
+    <div class="card">
+      <ul style="margin-bottom:0;">
+        <li><b>WordPress</b> <span class="tag tag-sage">Easy, ~10 min</span> — Use the Yoast or Rank Math SEO plugin: it has a robots.txt editor built in. Drop llms.txt in via a file manager plugin. Paste schema into the page's "custom header" box (or the plugin's schema field). No code.</li>
+        <li><b>Shopify</b> <span class="tag tag-amber">Medium</span> — robots is editable via <code>robots.txt.liquid</code> in your theme; add schema in <code>theme.liquid</code> or a free schema app. llms.txt needs a quick file upload — hand this one to whoever set up your theme.</li>
+        <li><b>Webflow / Framer</b> <span class="tag tag-sage">Easy</span> — robots.txt is in Site Settings → SEO. Schema goes in Page Settings → "Custom code / inside &lt;head&gt;." Paste and publish.</li>
+        <li><b>Wix / Squarespace</b> <span class="tag tag-amber">Medium</span> — Use the "custom code / code injection" area in settings for schema; robots is partly managed for you. A couple of clicks, some limits.</li>
+        <li><b>Custom or coded site (React, Next, static)</b> <span class="tag tag-sage">Easy for a dev</span> — drop <code>robots.txt</code> and <code>llms.txt</code> in your <code>/public</code> (root) folder; put schema in the page's <code>&lt;head&gt;</code>. This is the one to hand to your developer.</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-top:24px;">Handing it to your marketing or SEO team? Send them this 👇</h3>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste brief for your team</div>
+      <div class="prompt-text">Please add three things to our site — all standard, safe, and under 30 minutes total, no design or content changes:
+
+1. Merge the attached robots.txt rules at our root (yoursite.com/robots.txt) — they allow AI search crawlers (GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot).
+2. Add an llms.txt file at our domain root (yoursite.com/llms.txt) with the content I've pasted.
+3. Add the FAQ schema (JSON-LD) into the &lt;head&gt; of [paste the page URL].
+
+These are SEO + AI-search visibility files generated for us. Ping me if anything's unclear.</div>
+    </div>
+
+    <p><b>How hard is this really?</b> robots.txt and llms.txt are just uploading two small text files — about as hard as attaching a file to an email. Schema is pasting one snippet into a page's header. If you can edit a page in your website builder, you can do this in an afternoon. If not, the brief above gets it done by anyone technical in half an hour.</p>
   </div>
 
   <!-- STEP 3 — RE-AUDIT -->
@@ -153,9 +201,10 @@ Rules:
     <div class="step-tag">Step 4 · the part everyone asks about</div>
     <h2>Set up your live report</h2>
     <p>SEO only improves over time — so you need to see the trend, not a one-off snapshot. Claude can build you a live dashboard that pulls fresh numbers every time you open it and draws your rankings climbing week over week.</p>
-    <p>Two pieces make it work together:</p>
+    <p style="margin-bottom:0;"><a class="btn-cta" href="dashboard.html" style="margin-top:4px;">See a live dashboard example →</a></p>
+    <p style="margin-top:18px;">Two pieces make it work together:</p>
     <h3 style="margin-top:10px;">A · Build the dashboard</h3>
-    <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Create a live artifact dashboard for my SEO + GEO report. Each time I open it, pull my current rankings from the Search Console MCP and my GEO score, and draw a line chart of both over time. Show my striking-distance keywords as a table and my AI-citation status per platform. Remember each day's numbers so the trend builds up.</div></div>
+    <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Create a live artifact dashboard for my SEO + GEO report. Give it a tab for each skill — Auditor, AI-Search Spy, Diagnoser, Fixer, Live Report — where each shows the result, which tools are live, and my next step. Each time I open it, pull my current rankings from the Search Console MCP and my GEO score, and draw a line chart of both over time. Show my striking-distance keywords and my AI-question gaps by intent as tables, and put my ready-to-paste fixes (schema, llms.txt, robots.txt) behind copy buttons. Remember each day's numbers so the trend builds up.</div></div>
     <h3>B · Add a daily logger so the graph fills in by itself</h3>
     <p>An artifact only refreshes when you open it — so schedule a tiny daily task to log one datapoint every morning, even on days you don't look.</p>
     <div class="prompt-box"><div class="prompt-label">Prompt</div><div class="prompt-text">Every morning at 8am, run my SEO + GEO audit on [yoursite.com], save today's key numbers — average position, GEO score, keywords in top 10, AI citations — to my tracking file, and message me only if something moved more than 3 positions.</div></div>

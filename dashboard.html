@@ -5,20 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SEO + GEO Live Report — heyfixit.ai</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
-  --cream:#F5F0E8; --warm:#E8DFD3; --white:#FFFFFF; --dark:#2D2320; --mid:#7A6B62;
-  --berry:#A8174A; --pink:#F2B8C6; --gingham:#E8A0A0; --sage:#6B8856; --dark-sage:#3D5230; --burgundy:#7A1B1B;
-  --font-display:'Playfair Display',Georgia,serif; --font-body:'DM Sans',-apple-system,sans-serif;
-  --radius-sm:6px; --radius-md:10px; --radius-lg:14px; --radius-full:999px;
-  --shadow-card:0 2px 12px rgba(45,35,32,0.06); --shadow-lift:0 4px 20px rgba(45,35,32,0.10);
+  --cream:#F5F0E8;--warm:#E8DFD3;--white:#FFFFFF;--dark:#2D2320;--mid:#7A6B62;
+  --berry:#A8174A;--pink:#F2B8C6;--gingham:#E8A0A0;--sage:#6B8856;--dark-sage:#3D5230;--burgundy:#7A1B1B;
+  --font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',-apple-system,sans-serif;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-full:999px;
+  --shadow-card:0 2px 12px rgba(45,35,32,.06);--shadow-lift:0 4px 20px rgba(45,35,32,.10);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:var(--font-body);background:var(--cream);color:var(--dark);line-height:1.6;padding:32px 28px 56px;}
+body{font-family:var(--font-body);background:var(--cream);color:var(--dark);line-height:1.6;padding:30px 26px 56px;}
 .wrap{max-width:1040px;margin:0 auto;}
 h1,h2,h3{font-family:var(--font-display);color:var(--dark);line-height:1.2;}
-h1{font-size:34px;font-weight:800;}
+h1{font-size:33px;font-weight:800;}
 h2{font-size:21px;font-weight:700;}
 h3{font-size:15px;font-weight:600;}
 p{font-size:13px;color:var(--mid);}
@@ -30,56 +29,81 @@ p{font-size:13px;color:var(--mid);}
 .head-meta{text-align:right;font-size:11.5px;color:var(--mid);}
 .head-meta b{color:var(--dark);font-weight:600;}
 .demo-note{font-size:10.5px;color:var(--burgundy);background:#FDF0F0;border:1px solid #E8C0C0;padding:3px 9px;border-radius:5px;display:inline-block;margin-top:6px;}
-.card{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-card);}
-.section{margin-top:26px;}
+.card{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-card);}
+.section{margin-top:22px;}
 .section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--berry);margin-bottom:12px;}
 /* stats */
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
-.stat{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-md);padding:16px 14px;text-align:center;box-shadow:var(--shadow-card);}
-.stat-num{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--berry);line-height:1;}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.stat{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-md);padding:15px 12px;text-align:center;box-shadow:var(--shadow-card);}
+.stat-num{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--berry);line-height:1;}
 .stat-label{font-size:10.5px;color:var(--mid);margin-top:6px;font-weight:500;}
 .stat-delta{font-size:10.5px;font-weight:700;margin-top:5px;}
-.up{color:var(--sage);} .down{color:var(--burgundy);}
-/* charts */
-.chart-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;}
-.chart-box{height:280px;position:relative;}
-.chart-box.small{height:240px;}
-/* tags */
+.up{color:var(--sage);}.down{color:var(--burgundy);}
+/* tabs */
+.tabrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;border-bottom:2px solid var(--warm);padding-bottom:0;}
+.tab{background:var(--white);border:1px solid var(--warm);border-bottom:none;border-radius:10px 10px 0 0;padding:10px 16px;font-size:13px;font-weight:600;color:var(--mid);cursor:pointer;display:flex;align-items:center;gap:7px;position:relative;top:2px;transition:all .15s;}
+.tab:hover{color:var(--dark);}
+.tab.active{background:var(--dark);color:var(--cream);border-color:var(--dark);}
+.tab .step{font-size:9.5px;opacity:.7;font-weight:700;}
+.panel{display:none;animation:fade .25s ease;}
+.panel.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin:22px 0 4px;}
+.panel-head h2{font-size:24px;}
+.panel-sub{font-size:13.5px;color:var(--mid);margin-bottom:16px;}
+/* tools live row */
+.tools-live{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px;}
+.tool-chip{display:inline-flex;align-items:center;gap:6px;background:#F1F4EF;border:1px solid #C8D9BE;color:var(--dark-sage);font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:var(--radius-full);}
+.tool-chip::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 3px rgba(107,136,86,.2);}
+/* result cards */
+.res-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:6px 0 4px;}
+.res{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-md);padding:14px;text-align:center;}
+.res-num{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--dark);}
+.res-lab{font-size:11px;color:var(--mid);margin-top:3px;}
+/* next step box */
+.nextstep{background:#FDF0F4;border:1px solid var(--gingham);border-left:4px solid var(--berry);border-radius:var(--radius-md);padding:16px 18px;margin-top:16px;}
+.nextstep .ns-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--berry);margin-bottom:6px;}
+.nextstep p{font-size:13.5px;color:var(--dark);margin-bottom:0;}
+/* code box */
+.codebox{background:#2D2320;border-radius:var(--radius-md);margin:12px 0;overflow:hidden;border:1px solid #1f1714;}
+.cb-head{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:rgba(255,255,255,.05);border-bottom:1px solid rgba(232,223,211,.12);}
+.cb-label{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pink);}
+.copybtn{background:var(--berry);color:#fff;border:none;border-radius:5px;font-size:11px;font-weight:700;padding:5px 13px;cursor:pointer;font-family:var(--font-body);}
+.copybtn:hover{opacity:.88;}
+.code-pre{margin:0;padding:14px 16px;font-family:'SFMono-Regular',Consolas,monospace;font-size:11.5px;line-height:1.6;color:#E6DDD6;white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;}
+/* tags + table */
 .tag{display:inline-block;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;}
 .tag-berry{background:#FDF0F4;color:var(--berry);border:1px solid var(--gingham);}
 .tag-sage{background:#F1F4EF;color:var(--sage);border:1px solid #C8D9BE;}
 .tag-burg{background:#FDF0F0;color:var(--burgundy);border:1px solid #E8C0C0;}
 .tag-neutral{background:var(--warm);color:var(--mid);border:1px solid #D4C9BE;}
 .tag-amber{background:#FEF8E8;color:#8B6800;border:1px solid #E8D8A0;}
-/* table */
 .brand-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);}
 .brand-table thead{background:var(--dark);}
-.brand-table th{padding:12px 14px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--warm);}
-.brand-table td{padding:12px 14px;font-size:12.5px;border-top:1px solid var(--warm);vertical-align:middle;}
+.brand-table th{padding:11px 13px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--warm);}
+.brand-table td{padding:11px 13px;font-size:12.5px;border-top:1px solid var(--warm);vertical-align:middle;}
 .brand-table tr.highlight td{background:#F8F4EF;}
-.kw{font-weight:600;color:var(--dark);}
-.mono{font-family:monospace;font-weight:700;}
+.kw{font-weight:600;color:var(--dark);}.mono{font-family:monospace;font-weight:700;}
+/* charts */
+.chart-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;}
+.chart-box{height:270px;}
+.chart-box.small{height:230px;}
 /* ai panel */
-.ai-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
-.ai-cell{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-md);padding:14px 12px;text-align:center;}
+.ai-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.ai-cell{background:var(--white);border:1px solid var(--warm);border-radius:var(--radius-md);padding:13px 10px;text-align:center;}
 .ai-plat{font-size:12px;font-weight:600;color:var(--dark);margin-bottom:8px;}
-/* dark panel */
-.dark-panel{background:var(--dark);border-radius:var(--radius-lg);padding:26px;}
-.dark-panel h2{color:var(--cream);}
-.dark-panel p{color:#C8BDB8;}
-.dark-panel .accent{color:var(--pink);font-weight:600;}
-.next-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:10px;}
-.next-list li{background:rgba(255,255,255,0.05);border:1px solid rgba(232,223,211,0.15);border-radius:var(--radius-md);padding:13px 16px;font-size:13px;color:#E6DDD6;display:flex;gap:12px;align-items:flex-start;}
-.next-num{background:var(--berry);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:var(--font-body);}
-/* fixes log */
-.log{display:flex;flex-direction:column;gap:0;}
-.log-item{display:grid;grid-template-columns:84px 1fr auto;gap:14px;padding:13px 0;border-top:1px solid var(--warm);align-items:center;}
+/* log */
+.log-item{display:grid;grid-template-columns:74px 1fr auto;gap:12px;padding:11px 0;border-top:1px solid var(--warm);align-items:center;}
 .log-item:first-child{border-top:none;}
-.log-date{font-size:11px;font-weight:700;color:var(--berry);font-family:var(--font-body);}
-.log-fix{font-size:13px;color:var(--dark);}
-.log-result{font-size:11.5px;color:var(--sage);font-weight:600;text-align:right;}
+.log-date{font-size:11px;font-weight:700;color:var(--berry);}
+.log-fix{font-size:12.5px;color:var(--dark);}
+.log-result{font-size:11px;color:var(--sage);font-weight:600;text-align:right;}
+/* setup callout */
+.setup{background:var(--dark);border-radius:var(--radius-lg);padding:24px;}
+.setup h2,.setup h3{color:var(--cream);}.setup p{color:#C8BDB8;}
+.setup .accent{color:var(--pink);}
 .foot{margin-top:30px;text-align:center;font-size:11px;color:var(--mid);}
-@media(max-width:860px){.stats{grid-template-columns:repeat(2,1fr);}.chart-grid{grid-template-columns:1fr;}.ai-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:860px){.stats{grid-template-columns:repeat(2,1fr);}.chart-grid,.res-grid,.ai-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -96,12 +120,12 @@ p{font-size:13px;color:var(--mid);}
     <div class="head-meta">
       Last updated<br><b>5 June 2026, 08:00</b><br>
       <span style="color:var(--sage);font-weight:600;">▲ improving 12 weeks straight</span>
-      <br><span class="demo-note">Demo data — wire to your GSC + DataForSEO to go live</span>
+      <br><span class="demo-note">Demo data — copy the prompts below to build your own</span>
     </div>
   </div>
 
-  <!-- KPI STATS -->
-  <div class="stats section" style="margin-top:24px;">
+  <!-- KPI STATS (always visible snapshot) -->
+  <div class="stats section">
     <div class="stat"><div class="stat-num">11.2</div><div class="stat-label">Avg Google Position</div><div class="stat-delta up">▲ from 27.4</div></div>
     <div class="stat"><div class="stat-num">74</div><div class="stat-label">GEO Readiness /100</div><div class="stat-delta up">▲ +36 pts</div></div>
     <div class="stat"><div class="stat-num">23</div><div class="stat-label">Keywords in Top 10</div><div class="stat-delta up">▲ from 4</div></div>
@@ -109,69 +133,233 @@ p{font-size:13px;color:var(--mid);}
     <div class="stat"><div class="stat-num">9</div><div class="stat-label">AI Citations / 12</div><div class="stat-delta up">▲ from 1</div></div>
   </div>
 
-  <!-- TREND CHARTS -->
-  <div class="section">
-    <div class="section-label">The trend — why we track over time</div>
-    <div class="chart-grid">
-      <div class="card"><h3 style="margin-bottom:6px;">Rankings &amp; AI visibility climbing</h3><p style="margin-bottom:10px;">Avg Google position (lower is better) vs GEO score /100</p><div class="chart-box"><canvas id="trendChart"></canvas></div></div>
-      <div class="card"><h3 style="margin-bottom:6px;">Organic clicks per week</h3><p style="margin-bottom:10px;">Compounding as fixes ship</p><div class="chart-box small"><canvas id="clicksChart"></canvas></div></div>
+  <!-- TABS -->
+  <div class="tabrow">
+    <div class="tab active" onclick="switchTab(0)">📋 Overview</div>
+    <div class="tab" onclick="switchTab(1)">🔍 The Auditor<span class="step">· 01</span></div>
+    <div class="tab" onclick="switchTab(2)">🕵️ AI-Search Spy<span class="step">· 02</span></div>
+    <div class="tab" onclick="switchTab(3)">🩺 The Diagnoser<span class="step">· 03</span></div>
+    <div class="tab" onclick="switchTab(4)">🔧 The Fixer<span class="step">· 04</span></div>
+    <div class="tab" onclick="switchTab(5)">📈 Live Report<span class="step">· 05</span></div>
+  </div>
+
+  <!-- ===== PANEL 0 · OVERVIEW ===== -->
+  <div class="panel active">
+    <div class="panel-head"><div><h2>The whole loop, one screen</h2></div></div>
+    <p class="panel-sub">Audit → Diagnose → Fix → Re-audit, on repeat. Every tool below is live and feeding this report.</p>
+    <div class="section-label">Tools live</div>
+    <div class="tools-live">
+      <span class="tool-chip">Google Search Console MCP</span>
+      <span class="tool-chip">DataForSEO MCP</span>
+      <span class="tool-chip">seo-technical</span>
+      <span class="tool-chip">seo-geo</span>
+      <span class="tool-chip">seo-content</span>
+      <span class="tool-chip">seo-schema</span>
+      <span class="tool-chip">seo-sitemap</span>
+      <span class="tool-chip">PageSpeed API</span>
+      <span class="tool-chip">Scheduled task (daily)</span>
+    </div>
+    <div class="setup section">
+      <span class="badge" style="background:transparent;border-color:var(--pink);color:var(--pink);">Build your own</span>
+      <h2 style="margin-top:12px;">Want this for your site? Paste this into Claude.</h2>
+      <p style="margin-top:6px;">It runs the audit, writes your fixes, and builds you a live dashboard exactly like this — for your domain.</p>
+      <div class="codebox">
+        <div class="cb-head"><span class="cb-label">Master prompt</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="code-pre">You're my SEO + GEO analyst. Audit [mysite.com] on Google AND in AI search (ChatGPT, Perplexity, Gemini, AI Overviews). Find why I'm not ranking, write every fix ready to paste, and build me a live dashboard like this that tracks my progress over time. Start with the audit and show me a baseline scorecard — Google health and AI-search health side by side.</pre>
+      </div>
+      <p style="font-size:12px;margin-bottom:0;">Full step-by-step with every tool to connect is in the setup guide.</p>
     </div>
   </div>
 
-  <!-- LONG-TAIL QUICK WINS -->
-  <div class="section">
-    <div class="section-label">Long-tail quick wins — "striking distance" (rank 8–20, one tweak from page 1)</div>
-    <table class="brand-table">
-      <thead><tr><th>Keyword</th><th>Position</th><th>7d change</th><th>Volume/mo</th><th>Intent</th><th>Next action</th></tr></thead>
-      <tbody>
-        <tr class="highlight"><td class="kw">free ai seo audit tool</td><td class="mono">11</td><td><span class="tag-sage tag">▲ 3</span></td><td>880</td><td><span class="tag tag-berry">High</span></td><td>Add comparison table + FAQ schema</td></tr>
-        <tr><td class="kw">llms txt generator</td><td class="mono">6</td><td><span class="tag-sage tag">▲ 9</span></td><td>260</td><td><span class="tag tag-berry">High</span></td><td>Add step-by-step + sample file</td></tr>
-        <tr class="highlight"><td class="kw">how to automate gtm with ai</td><td class="mono">14</td><td><span class="tag-sage tag">▲ 6</span></td><td>170</td><td><span class="tag tag-berry">High</span></td><td>Internal-link from GTM pillar page</td></tr>
-        <tr><td class="kw">replace sales navigator with ai</td><td class="mono">7</td><td><span class="tag-sage tag">▲ 5</span></td><td>210</td><td><span class="tag tag-berry">High</span></td><td>Add 134–167 word answer block</td></tr>
-        <tr class="highlight"><td class="kw">does chatgpt recommend my brand</td><td class="mono">16</td><td><span class="tag-amber tag">▲ 2</span></td><td>90</td><td><span class="tag tag-berry">High</span></td><td>Build Reddit + Wikipedia mentions</td></tr>
-        <tr><td class="kw">claude skills for seo</td><td class="mono">9</td><td><span class="tag-sage tag">▲ 4</span></td><td>320</td><td><span class="tag tag-amber">Med</span></td><td>Add H2 question headings</td></tr>
-        <tr><td class="kw">geo vs seo 2026</td><td class="mono">12</td><td><span class="tag-sage tag">▲ 8</span></td><td>140</td><td><span class="tag tag-amber">Med</span></td><td>Refresh stats, add cited sources</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- AI SEARCH VISIBILITY -->
-  <div class="section">
-    <div class="section-label">AI search visibility — are you the cited answer?</div>
-    <div class="ai-grid">
-      <div class="ai-cell"><div class="ai-plat">ChatGPT</div><span class="tag tag-sage">Cited ✓</span></div>
-      <div class="ai-cell"><div class="ai-plat">Perplexity</div><span class="tag tag-sage">Cited ✓</span></div>
-      <div class="ai-cell"><div class="ai-plat">Bing Copilot</div><span class="tag tag-sage">Cited ✓</span></div>
-      <div class="ai-cell"><div class="ai-plat">Google AIO</div><span class="tag tag-amber">Partial</span></div>
-      <div class="ai-cell"><div class="ai-plat">Gemini</div><span class="tag tag-neutral">Not yet</span></div>
+  <!-- ===== PANEL 1 · THE AUDITOR ===== -->
+  <div class="panel">
+    <div class="panel-head"><div><h2>🔍 The Auditor</h2></div></div>
+    <p class="panel-sub">Crawls the whole site, runs 180+ technical checks, pulls live Google rankings. <strong>Result:</strong> here's your baseline.</p>
+    <div class="tools-live"><span class="tool-chip">Search Console MCP</span><span class="tool-chip">seo-technical</span><span class="tool-chip">PageSpeed API</span></div>
+    <div class="res-grid section">
+      <div class="res"><div class="res-num">92<span style="font-size:13px;color:var(--mid)">/100</span></div><div class="res-lab">Technical health</div></div>
+      <div class="res"><div class="res-num">34</div><div class="res-lab">Pages indexed</div></div>
+      <div class="res"><div class="res-num" style="color:var(--burgundy)">6</div><div class="res-lab">Issues found</div></div>
+      <div class="res"><div class="res-num" style="color:var(--sage)">1.8s</div><div class="res-lab">LCP (good)</div></div>
+    </div>
+    <div class="section">
+      <div class="section-label">What it found — ranked by impact</div>
+      <table class="brand-table">
+        <thead><tr><th>Issue</th><th>Severity</th><th>Pages</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td>Missing meta descriptions</td><td><span class="tag tag-burg">High</span></td><td>5</td><td>Auto-written → see The Fixer</td></tr>
+          <tr><td>No FAQ schema on service pages</td><td><span class="tag tag-burg">High</span></td><td>6</td><td>JSON-LD ready → The Fixer</td></tr>
+          <tr><td>Thin content (&lt;300 words)</td><td><span class="tag tag-amber">Med</span></td><td>3</td><td>Expand with answer blocks</td></tr>
+          <tr><td>4 images missing alt text</td><td><span class="tag tag-amber">Med</span></td><td>2</td><td>Alt text drafted</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="nextstep">
+      <div class="ns-tag">▶ Your next step</div>
+      <p style="margin-bottom:10px;">Fix the high-severity issues first. Paste this to get every fix written:</p>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">Prompt</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre">Fix the 6 issues from my audit of heyfixit.ai, high severity first. Write each fix ready to paste — meta descriptions, FAQ schema, expanded content — and tell me exactly which page each goes on.</pre></div>
     </div>
   </div>
 
-  <!-- FIXES SHIPPED -->
-  <div class="section">
-    <div class="section-label">Fixes shipped — closing the loop</div>
-    <div class="card">
-      <div class="log">
-        <div class="log-item"><div class="log-date">2 Jun</div><div class="log-fix">Added FAQ schema to 6 service pages</div><div class="log-result">3 keywords → top 10</div></div>
-        <div class="log-item"><div class="log-date">26 May</div><div class="log-fix">Published llms.txt + allowed AI crawlers</div><div class="log-result">First ChatGPT citation in 4 days</div></div>
-        <div class="log-item"><div class="log-date">19 May</div><div class="log-fix">Rewrote homepage title + meta description</div><div class="log-result">CTR +1.2 pts</div></div>
-        <div class="log-item"><div class="log-date">12 May</div><div class="log-fix">Compressed images, fixed Core Web Vitals</div><div class="log-result">LCP 3.1s → 1.8s</div></div>
-        <div class="log-item"><div class="log-date">5 May</div><div class="log-fix">Rewrote 4 blog intros into citable answer blocks</div><div class="log-result">GEO score +7</div></div>
+  <!-- ===== PANEL 2 · AI-SEARCH SPY ===== -->
+  <div class="panel">
+    <div class="panel-head"><div><h2>🕵️ The AI-Search Spy</h2></div></div>
+    <p class="panel-sub">Checks if AI engines recommend you, and scores why. <strong>Result:</strong> cited in 3 of 5.</p>
+    <div class="tools-live"><span class="tool-chip">seo-geo</span><span class="tool-chip">DataForSEO MCP</span><span class="tool-chip">Ahrefs (free)</span></div>
+    <div class="section">
+      <div class="section-label">Are you the cited answer?</div>
+      <div class="ai-grid">
+        <div class="ai-cell"><div class="ai-plat">ChatGPT</div><span class="tag tag-sage">Cited ✓</span></div>
+        <div class="ai-cell"><div class="ai-plat">Perplexity</div><span class="tag tag-sage">Cited ✓</span></div>
+        <div class="ai-cell"><div class="ai-plat">Bing Copilot</div><span class="tag tag-sage">Cited ✓</span></div>
+        <div class="ai-cell"><div class="ai-plat">Google AIO</div><span class="tag tag-amber">Partial</span></div>
+        <div class="ai-cell"><div class="ai-plat">Gemini</div><span class="tag tag-neutral">Not yet</span></div>
       </div>
     </div>
+    <div class="nextstep">
+      <div class="ns-tag">▶ Your next step</div>
+      <p style="margin-bottom:4px;">Two reasons you're skipped: AI crawlers aren't fully allowed, and you have no <code>llms.txt</code>. Both are in The Fixer tab — paste them and you'll start getting cited. Then earn off-site mentions:</p>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">Prompt</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre">Give me 3 outreach angles to earn Reddit + a Wikipedia-style entity mention for heyfixit.ai — YouTube mentions correlate most strongly with AI citations, so include one video idea too.</pre></div>
+    </div>
   </div>
 
-  <!-- DARK PANEL: THIS WEEK'S PRIORITY -->
-  <div class="section">
-    <div class="dark-panel">
-      <span class="badge" style="background:transparent;border-color:var(--pink);color:var(--pink);">Claude's synthesis</span>
-      <h2 style="margin-top:14px;">This week, do these 3 things first</h2>
-      <p style="margin-top:6px;">Ranked by impact ÷ effort. The rest can wait — these move the needle now.</p>
-      <ul class="next-list">
-        <li><span class="next-num">1</span><div><span class="accent">"free ai seo audit tool" is at position 11 — page 2.</span> It has 880 searches/mo, your highest-volume striking-distance keyword. Add a comparison table + FAQ schema to that page. Likely jump to page 1 within 10 days.</div></li>
-        <li><span class="next-num">2</span><div><span class="accent">Gemini still doesn't cite you.</span> Only 11% of brands are cited by both ChatGPT and Google's AI. Get 2 Reddit mentions + a Wikipedia-style entity reference to close the gap.</div></li>
-        <li><span class="next-num">3</span><div><span class="accent">"how to automate gtm with ai" jumped 6 spots to #14.</span> Internal-link it from your GTM command-center pillar page to push it into the top 10 — and it feeds the same GTM system.</div></li>
-      </ul>
+  <!-- ===== PANEL 3 · THE DIAGNOSER ===== -->
+  <div class="panel">
+    <div class="panel-head"><div><h2>🩺 The Diagnoser</h2></div></div>
+    <p class="panel-sub">Two gaps in one place: long-tail keywords you almost rank for, <em>and</em> the real questions people ask AI — scored by intent so you know exactly what to write next.</p>
+    <div class="tools-live"><span class="tool-chip">Search Console MCP</span><span class="tool-chip">DataForSEO MCP</span><span class="tool-chip">seo-content</span></div>
+    <div class="section">
+      <div class="section-label">Long-tail quick wins — "striking distance" (rank 8–20, one tweak from page 1)</div>
+      <table class="brand-table">
+        <thead><tr><th>Keyword</th><th>Position</th><th>7d</th><th>Vol/mo</th><th>Intent</th><th>Next action</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td class="kw">free ai seo audit tool</td><td class="mono">11</td><td><span class="tag-sage tag">▲3</span></td><td>880</td><td><span class="tag tag-berry">High</span></td><td>Comparison table + FAQ schema</td></tr>
+          <tr><td class="kw">llms txt generator</td><td class="mono">6</td><td><span class="tag-sage tag">▲9</span></td><td>260</td><td><span class="tag tag-berry">High</span></td><td>Add step-by-step + sample</td></tr>
+          <tr class="highlight"><td class="kw">how to automate gtm with ai</td><td class="mono">14</td><td><span class="tag-sage tag">▲6</span></td><td>170</td><td><span class="tag tag-berry">High</span></td><td>Internal-link from GTM page</td></tr>
+          <tr><td class="kw">replace sales navigator with ai</td><td class="mono">7</td><td><span class="tag-sage tag">▲5</span></td><td>210</td><td><span class="tag tag-berry">High</span></td><td>Add citable answer block</td></tr>
+          <tr class="highlight"><td class="kw">does chatgpt recommend my brand</td><td class="mono">16</td><td><span class="tag-amber tag">▲2</span></td><td>90</td><td><span class="tag tag-berry">High</span></td><td>Reddit + Wikipedia mentions</td></tr>
+          <tr><td class="kw">claude skills for seo</td><td class="mono">9</td><td><span class="tag-sage tag">▲4</span></td><td>320</td><td><span class="tag tag-amber">Med</span></td><td>Add H2 question headings</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section">
+      <div class="section-label">Questions people ask AI — scored by intent, mapped to your gaps</div>
+      <div class="res-grid" style="margin-bottom:14px;">
+        <div class="res"><div class="res-num">47</div><div class="res-lab">Questions tracked</div></div>
+        <div class="res"><div class="res-num" style="color:var(--burgundy)">23</div><div class="res-lab">Content gaps</div></div>
+        <div class="res"><div class="res-num" style="color:#8B6800">9</div><div class="res-lab">Thin / partial</div></div>
+        <div class="res"><div class="res-num" style="color:var(--sage)">15</div><div class="res-lab">Already cited</div></div>
+      </div>
+      <table class="brand-table">
+        <thead><tr><th>Question people ask AI</th><th>Intent</th><th>Asked/mo</th><th>Your gap</th><th>What to write</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td>"is ChatGPT replacing Google search?"</td><td><span class="tag tag-sage">Informational</span></td><td>2,400</td><td><span class="tag tag-amber">Thin</span></td><td>Expand blog + stats answer block</td></tr>
+          <tr><td>"what is GEO in SEO?"</td><td><span class="tag tag-sage">Informational</span></td><td>1,300</td><td><span class="tag tag-burg">No answer</span></td><td>Definition FAQ + blog</td></tr>
+          <tr class="highlight"><td>"best free AI SEO audit tool"</td><td><span class="tag tag-berry">Commercial</span></td><td>720</td><td><span class="tag tag-burg">No answer</span></td><td>Comparison page + FAQ schema</td></tr>
+          <tr><td>"how much does an SEO consultant cost?"</td><td><span class="tag tag-berry">Commercial</span></td><td>590</td><td><span class="tag tag-burg">No answer</span></td><td>Cost-breakdown blog post</td></tr>
+          <tr><td>"how to add llms.txt to my site"</td><td><span class="tag tag-amber">Transactional</span></td><td>350</td><td><span class="tag tag-amber">Thin</span></td><td>Step-by-step + sample file</td></tr>
+          <tr><td>"does my site show up in ChatGPT?"</td><td><span class="tag tag-sage">Informational</span></td><td>480</td><td><span class="tag tag-sage">Cited ✓</span></td><td>Maintain — you own this</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11.5px;margin-top:8px;">Intent legend: <span class="tag tag-sage">Informational</span> → blog / FAQ · <span class="tag tag-berry">Commercial</span> → comparison / landing · <span class="tag tag-amber">Transactional</span> → how-to / product. Fill the <span class="tag tag-burg">No answer</span> rows first — that's where AI has nobody to cite yet.</p>
+    </div>
+    <div class="nextstep">
+      <div class="ns-tag">▶ Your next step</div>
+      <p style="margin-bottom:10px;">Fill the highest-volume "No answer" gaps first — that's where AI literally has no one to cite. Paste this:</p>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">Prompt</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre">From my AI-question gaps for heyfixit.ai, take the top 5 "no answer" questions. For each, write a 150-word citable answer block plus an FAQ-schema entry I can paste into a blog or FAQ page. Group them by intent and tell me whether each belongs on a blog, a comparison page, or a how-to.</pre></div>
+    </div>
+  </div>
+
+  <!-- ===== PANEL 4 · THE FIXER ===== -->
+  <div class="panel">
+    <div class="panel-head"><div><h2>🔧 The Fixer</h2></div></div>
+    <p class="panel-sub">Writes every fix, ready to paste. <strong>Copy each block → paste where noted → come back and re-audit.</strong></p>
+    <div class="tools-live"><span class="tool-chip">seo-schema</span><span class="tool-chip">seo-sitemap</span><span class="tool-chip">CMS MCP</span></div>
+
+    <div class="section">
+      <div class="section-label">1 · FAQ schema  →  paste in &lt;head&gt; of /audit page</div>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">JSON-LD</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre">&lt;script type="application/ld+json"&gt;
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Is there a free AI SEO audit tool?",
+     "acceptedAnswer":{"@type":"Answer","text":"Yes. heyfixit.ai runs a free end-to-end SEO and GEO audit inside Claude — technical health, live Google rankings and AI-search visibility, with no paid subscription."}},
+    {"@type":"Question","name":"Does it check ChatGPT and Perplexity visibility?",
+     "acceptedAnswer":{"@type":"Answer","text":"Yes. It tests whether your brand is cited across ChatGPT, Perplexity, Gemini and Google AI Overviews, and scores why you are or aren't."}}
+  ]
+}
+&lt;/script&gt;</pre></div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">2 · llms.txt  →  upload to yoursite.com/llms.txt</div>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">llms.txt</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre"># heyfixit.ai
+&gt; AI-powered SEO + GEO autopilot that audits, fixes and tracks your search visibility on Google and in AI search.
+
+## Core pages
+- [Free SEO + GEO Audit](https://heyfixit.ai/audit): End-to-end audit of technical SEO, rankings and AI-search visibility.
+- [How it works](https://heyfixit.ai/how-it-works): The audit → fix → re-audit loop.
+- [Pricing](https://heyfixit.ai/pricing): Plans and what's included.
+
+## Contact
+- hello@heyfixit.ai</pre></div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">3 · robots.txt  →  allow AI crawlers</div>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">robots.txt</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre">User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+Sitemap: https://heyfixit.ai/sitemap.xml</pre></div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">4 · Title + meta  →  /audit page</div>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">Title &amp; meta</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre">&lt;title&gt;Free AI SEO Audit Tool — Rank on Google &amp; in ChatGPT | heyfixit.ai&lt;/title&gt;
+&lt;meta name="description" content="Run a free end-to-end SEO + GEO audit in minutes. See where you rank on Google and whether ChatGPT recommends you — then fix it. No subscription."&gt;</pre></div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">5 · Citable answer block  →  top of /audit page (134–167 words is the AI-citation sweet spot)</div>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">Answer block</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre">A free AI SEO audit tool checks three things at once: your technical SEO health, your live Google rankings, and your visibility inside AI search engines like ChatGPT and Perplexity. heyfixit.ai runs all three inside Claude — it crawls your site, pulls your real Search Console data, and tests whether AI assistants cite your brand. Unlike traditional tools that only score on-page factors, it also flags WHY AI engines skip you: a missing llms.txt, blocked crawlers, or answers too long to quote. The audit returns a fix list ranked by impact, and writes the fixes for you — schema, meta tags and citable answer blocks included. Run it as often as you like at no cost; only competitor rank-tracking uses a paid source, and that runs to cents. Most sites see their first page-one movement within two weeks.</pre></div>
+    </div>
+
+    <div class="nextstep">
+      <div class="ns-tag">▶ Your next step</div>
+      <p>Paste blocks 1–5 into the pages noted, publish, then open the <strong>Live Report</strong> tab and re-audit in 2 weeks to watch the lines move. No CMS connected? Ask Claude: <em>"push these fixes live via my WordPress / Webflow MCP."</em></p>
+    </div>
+  </div>
+
+  <!-- ===== PANEL 5 · LIVE REPORT ===== -->
+  <div class="panel">
+    <div class="panel-head"><div><h2>📈 The Live Report</h2></div></div>
+    <p class="panel-sub">SEO only improves over time — so track the trend, not a snapshot. <strong>Result:</strong> 12 weeks up and to the right.</p>
+    <div class="tools-live"><span class="tool-chip">Live artifact</span><span class="tool-chip">Scheduled task (daily)</span><span class="tool-chip">GTM Command Center</span></div>
+    <div class="section">
+      <div class="chart-grid">
+        <div class="card"><h3 style="margin-bottom:6px;">Rankings &amp; AI visibility climbing</h3><p style="margin-bottom:10px;"><span style="color:var(--sage);font-weight:700;">●</span> GEO score /100 &nbsp;&nbsp;<span style="color:var(--berry);font-weight:700;">●</span> Avg Google position (lower is better)</p><div class="chart-box" id="trendChart"></div></div>
+        <div class="card"><h3 style="margin-bottom:6px;">Organic clicks per week</h3><p style="margin-bottom:10px;">Compounding as fixes ship</p><div class="chart-box small" id="clicksChart"></div></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label">Fixes shipped — closing the loop</div>
+      <div class="card">
+        <div class="log-item"><div class="log-date">2 Jun</div><div class="log-fix">Added FAQ schema to 6 service pages</div><div class="log-result">3 keywords → top 10</div></div>
+        <div class="log-item"><div class="log-date">26 May</div><div class="log-fix">Published llms.txt + allowed AI crawlers</div><div class="log-result">First ChatGPT citation in 4 days</div></div>
+        <div class="log-item"><div class="log-date">19 May</div><div class="log-fix">Rewrote homepage title + meta</div><div class="log-result">CTR +1.2 pts</div></div>
+        <div class="log-item"><div class="log-date">12 May</div><div class="log-fix">Fixed Core Web Vitals</div><div class="log-result">LCP 3.1s → 1.8s</div></div>
+      </div>
+    </div>
+    <div class="nextstep">
+      <div class="ns-tag">▶ Your next step — make it auto-update</div>
+      <p style="margin-bottom:10px;">Set a daily task so the graph fills itself, even on days you don't look:</p>
+      <div class="codebox"><div class="cb-head"><span class="cb-label">Scheduled-task prompt</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div><pre class="code-pre">Every morning at 8am, run my SEO + GEO audit on heyfixit.ai, log average position, GEO score, keywords in top 10 and AI citations to my tracking file, and message me only if something moved more than 3 positions.</pre></div>
     </div>
   </div>
 
@@ -180,37 +368,52 @@ p{font-size:13px;color:var(--mid);}
 </div>
 
 <script>
-const weeks = ['Mar 8','Mar 15','Mar 22','Mar 29','Apr 5','Apr 12','Apr 19','Apr 26','May 3','May 10','May 17','May 24','May 31','Jun 5'];
-const geo   = [38,41,43,44,47,50,52,55,58,61,64,68,71,74];
-const pos   = [27.4,26.1,25.0,24.2,22.8,21.0,19.5,18.1,16.7,15.2,14.0,13.1,12.0,11.2];
-const clicks= [210,240,265,300,360,420,490,560,650,760,870,980,1080,1180];
+const weeks=['Mar 8','Mar 15','Mar 22','Mar 29','Apr 5','Apr 12','Apr 19','Apr 26','May 3','May 10','May 17','May 24','May 31','Jun 5'];
+const geo=[38,41,43,44,47,50,52,55,58,61,64,68,71,74];
+const pos=[27.4,26.1,25.0,24.2,22.8,21.0,19.5,18.1,16.7,15.2,14.0,13.1,12.0,11.2];
+const clicks=[210,240,265,300,360,420,490,560,650,760,870,980,1080,1180];
+const berry='#A8174A',sage='#6B8856',mid='#7A6B62',grid='rgba(45,35,32,0.08)';
+const el=id=>document.getElementById(id);
 
-const berry='#A8174A', sage='#6B8856', dark='#2D2320', mid='#7A6B62', warm='#E8DFD3';
-Chart.defaults.font.family="'DM Sans', sans-serif";
-Chart.defaults.color = mid;
+function switchTab(i){
+  document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('active',k===i));
+  document.querySelectorAll('.panel').forEach((p,k)=>p.classList.toggle('active',k===i));
+}
+function copyCode(btn){
+  const pre=btn.closest('.codebox').querySelector('.code-pre');
+  const txt=pre.innerText;
+  const done=()=>{const o=btn.textContent;btn.textContent='Copied ✓';setTimeout(()=>btn.textContent='Copy',1600);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done).catch(sel);}else{sel();}
+  function sel(){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');done();}catch(e){}s.removeAllRanges();}
+}
 
-new Chart(document.getElementById('trendChart'),{
-  type:'line',
-  data:{labels:weeks,datasets:[
-    {label:'GEO score /100',data:geo,borderColor:sage,backgroundColor:'rgba(107,136,86,0.08)',borderWidth:2.5,tension:.35,fill:true,yAxisID:'yGeo',pointRadius:0,pointHoverRadius:5},
-    {label:'Avg Google position',data:pos,borderColor:berry,backgroundColor:'transparent',borderWidth:2.5,tension:.35,yAxisID:'yPos',pointRadius:0,pointHoverRadius:5}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-    plugins:{legend:{labels:{boxWidth:12,boxHeight:12,usePointStyle:true,font:{size:11}}}},
-    scales:{
-      yGeo:{position:'left',min:0,max:100,title:{display:true,text:'GEO score',color:sage,font:{size:10}},grid:{color:'rgba(232,223,211,0.6)'},ticks:{font:{size:10}}},
-      yPos:{position:'right',reverse:true,min:5,max:30,title:{display:true,text:'Google position',color:berry,font:{size:10}},grid:{drawOnChartArea:false},ticks:{font:{size:10}}},
-      x:{grid:{display:false},ticks:{font:{size:9.5},maxRotation:0}}
-    }}
-});
-
-new Chart(document.getElementById('clicksChart'),{
-  type:'bar',
-  data:{labels:weeks,datasets:[{label:'Organic clicks / week',data:clicks,backgroundColor:berry,borderRadius:4,barPercentage:.72}]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false}},
-    scales:{y:{beginAtZero:true,grid:{color:'rgba(232,223,211,0.6)'},ticks:{font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:0,autoSkip:true,maxTicksLimit:7}}}}
-});
+/* dual-axis line chart */
+(function(){
+  const W=560,H=250,padL=34,padR=34,padT=14,padB=26;
+  const n=weeks.length,x0=padL,x1=W-padR,y0=padT,y1=H-padB;
+  const X=i=>x0+(i/(n-1))*(x1-x0),Ygeo=v=>y1-(v/100)*(y1-y0),Ypos=p=>y0+((p-5)/25)*(y1-y0);
+  let g='';
+  [0,25,50,75,100].forEach(v=>{const y=Ygeo(v);g+=`<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="${grid}"/><text x="${x0-6}" y="${y+3}" font-size="9" fill="${sage}" text-anchor="end">${v}</text>`;});
+  [10,20,30].forEach(p=>{const y=Ypos(p);g+=`<text x="${x1+6}" y="${y+3}" font-size="9" fill="${berry}" text-anchor="start">${p}</text>`;});
+  weeks.forEach((w,i)=>{if(i%2===0)g+=`<text x="${X(i)}" y="${H-8}" font-size="8.5" fill="${mid}" text-anchor="middle">${w}</text>`;});
+  const gp=geo.map((v,i)=>`${X(i).toFixed(1)},${Ygeo(v).toFixed(1)}`).join(' ');
+  g+=`<polygon points="${x0},${y1} ${gp} ${x1},${y1}" fill="rgba(107,136,86,0.10)"/><polyline points="${gp}" fill="none" stroke="${sage}" stroke-width="2.5"/>`;
+  geo.forEach((v,i)=>g+=`<circle cx="${X(i).toFixed(1)}" cy="${Ygeo(v).toFixed(1)}" r="2.4" fill="${sage}"/>`);
+  const pp=pos.map((p,i)=>`${X(i).toFixed(1)},${Ypos(p).toFixed(1)}`).join(' ');
+  g+=`<polyline points="${pp}" fill="none" stroke="${berry}" stroke-width="2.5"/>`;
+  pos.forEach((p,i)=>g+=`<circle cx="${X(i).toFixed(1)}" cy="${Ypos(p).toFixed(1)}" r="2.4" fill="${berry}"/>`);
+  el('trendChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">${g}</svg>`;
+})();
+/* bar chart */
+(function(){
+  const W=560,H=220,padL=30,padR=12,padT=12,padB=26;
+  const n=weeks.length,x0=padL,x1=W-padR,y0=padT,y1=H-padB,max=1300;
+  const Y=v=>y1-(v/max)*(y1-y0),bw=(x1-x0)/n*0.62;
+  let g='';
+  [0,400,800,1200].forEach(v=>{const y=Y(v);g+=`<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="${grid}"/><text x="${x0-5}" y="${y+3}" font-size="8.5" fill="${mid}" text-anchor="end">${v}</text>`;});
+  clicks.forEach((v,i)=>{const cx=x0+(i+0.5)/n*(x1-x0),y=Y(v);g+=`<rect x="${(cx-bw/2).toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${(y1-y).toFixed(1)}" rx="2.5" fill="${berry}"/>`;if(i%2===0)g+=`<text x="${cx.toFixed(1)}" y="${H-8}" font-size="8" fill="${mid}" text-anchor="middle">${weeks[i]}</text>`;});
+  el('clicksChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">${g}</svg>`;
+})();
 </script>
 </body>
 </html>
